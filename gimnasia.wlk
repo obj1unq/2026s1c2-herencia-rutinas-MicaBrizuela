@@ -1,5 +1,14 @@
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
 class Rutina{
-    const property tiempo
     var intensidad
 
     method intensidad(){
@@ -10,27 +19,27 @@ class Rutina{
         intensidad = _intensidad
     }
 
-    method descanso()
+    method descanso(_tiempoPractica)
 
-    method caloriasBajadas(){
-        return 100 * (tiempo - self.descanso()) * intensidad
+    method caloriasBajadas(_tiempo){
+        return 100 * (_tiempo - self.descanso(_tiempo)) * intensidad
     }
 }
 
 
 class Running inherits Rutina{
-    override method descanso(){
-        return if (tiempo > 20) {5} else {2}
+    override method descanso(_tiempoPractica){
+        return if (_tiempoPractica > 20) {5} else {2}
     }
 }
 
-class Remo inherits Rutina{
-    
-    override method intensidad(){
-        return 1.3
-    }
+class Remo inherits Rutina(intensidad=1.3){
 
-    override method descanso(){
-        return tiempo / 5
+    override method intensidad(_intensidad){}
+
+    override method descanso(_tiempoPractica){
+        return _tiempoPractica / 5
     }
 }
+
+
