@@ -20,6 +20,10 @@
 // gimnasia.wlk
 // gimnasia.wlk
 // gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
 class Rutina{
     method intensidad()
 
@@ -33,7 +37,7 @@ class Rutina{
 
 class Running inherits Rutina{
 
-    var property intensidad
+    const property intensidad
 
     override method descanso(_tiempoPractica){
         return if (_tiempoPractica > 20) {5} else {2}
@@ -78,13 +82,17 @@ class Persona {
 
     method tiempo()
 
-    method pesoQuePierdePorRutina(_rutina){
-        return _rutina.caloriasBajadas(self.tiempo()) / self.kilosPorCaloria()
+    method pesoQuePierdePor(_rutina){
+        return self.caloriasQuemadasPor(_rutina) / self.kilosPorCaloria()
+    }
+
+    method caloriasQuemadasPor(_rutina){
+        return _rutina.caloriasBajadas(self.tiempo())
     }
 
     method aplicarRutina(_rutina){
         if (self.puedeAplicar(_rutina)){
-            peso -= self.pesoQuePierdePorRutina(_rutina)
+            peso -= self.pesoQuePierdePor(_rutina)
         }
     }
 
@@ -94,7 +102,7 @@ class Persona {
 
 class PersonaSedentaria inherits Persona{
 
-    var property tiempo
+    const property tiempo
     
     override method kilosPorCaloria(){
         return 7000
@@ -118,11 +126,42 @@ class PersonaAtleta inherits Persona{
     }
 
     override method puedeAplicar(_rutina){
-        return _rutina.caloriasBajadas(self.tiempo()) > 10000
+        return self.caloriasQuemadasPor(_rutina) > 10000
     }
 
-    override method pesoQuePierdePorRutina(_rutina){
+    override method pesoQuePierdePor(_rutina){
         return super(_rutina) -1
     }
 }
 
+class Club{
+    const property predios
+
+    method elMejorPredioPara(_persona){
+        return predios.max({predio => predio.cantidadDeCaloriasGastadasPor_SiSigueTodasLasRutinas(_persona)})
+    }
+
+    method prediosMasTranquiPara(_persona){
+        return predios.filter({predio => predio.hayRutinasTranquiPara(_persona)})
+    }
+
+    method rutinasMasExigentesPara(_persona){
+        return predios.map({predio => predio.rutinaMasExigentePara(_persona)})
+    }
+}
+
+class Predio{
+    const property rutinas
+
+    method cantidadDeCaloriasGastadasPor_SiSigueTodasLasRutinas(_persona){
+        return rutinas.sum({rutina => _persona.caloriasQuemadasPor(rutina)})
+    }
+
+    method hayRutinasTranquiPara(_persona){
+        return rutinas.any({rutina => _persona.caloriasQuemadasPor(rutina) < 500})
+    }
+
+    method rutinaMasExigentePara(_persona){
+        return rutinas.max({rutina => _persona.caloriasQuemadasPor(rutina)})
+    }
+}
