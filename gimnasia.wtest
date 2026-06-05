@@ -4,6 +4,18 @@
 // gimnasia.wtest
 // gimnasia.wtest
 // gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
+// gimnasia.wtest
 import gimnasia.*
 
 describe "rutinas" {
@@ -24,11 +36,11 @@ describe "rutinas" {
 	// Una persona atleta con peso 40 
 
 //Punto 3: clubes
-	//const recreo = 
+	const recreo = new Predio(rutinas=#{correrEnLaPlaya,maratonBA})
 	//un predio con correrEnLaPlaya y maratonBA
-	//const nautico = 
+	const nautico = new Predio(rutinas=#{remarEnElDelta,remarEnCaminoRemeros})
 	//un predio con remarEnElDelta y remarEnCaminoRemeros
-	//const clubBarrial = 
+	const clubBarrial = new Club(predios=#{recreo,nautico})
 	//un club con recreo y nautico
 //	
 //
@@ -133,17 +145,29 @@ describe "rutinas" {
 	 
 //punto 3: Consultas
 	test "3.1 el mejor predio" {
-		
+		assert.equals(recreo, clubBarrial.elMejorPredioPara(bob))
+		assert.equals(recreo, clubBarrial.elMejorPredioPara(calamardo))
+
 		//El mejor predio del clubBarrial para bob debería ser recreo		
 		//El mejor predio del clubBarrial para calamardo debería ser recreo		
 	}	
 	
 	test "3.2 predios tranquis" {
+		assert.that(clubBarrial.prediosMasTranquiPara(bob).isEmpty())
+		assert.equals(#{recreo},clubBarrial.prediosMasTranquiPara(calamardo))
+
 		//No debería haber predios tranquis en el clubBarrial para bob
 		//Los predios tranquis del clubBarrial para calamardo solo incluyen a recreo  
 	}
 	
 	test "3.3 rutinas más exigentes" {
+		assert.that(clubBarrial.rutinasMasExigentesPara(bob).size() == 2)
+		assert.that(clubBarrial.rutinasMasExigentesPara(bob).contains(maratonBA))
+		assert.that(clubBarrial.rutinasMasExigentesPara(bob).contains(remarEnCaminoRemeros))
+
+		assert.that(clubBarrial.rutinasMasExigentesPara(calamardo).size() == 2)
+		assert.that(clubBarrial.rutinasMasExigentesPara(calamardo).contains(maratonBA))
+		assert.that(clubBarrial.rutinasMasExigentesPara(calamardo).contains(remarEnElDelta))
 		//Las rutinas más exigentes del clubBarrial para bob son maratonBA y remarEnCaminoRemeros
 		//Las rutinas más exigentes del clubBarrial para calamardo son maratonBA y remarEnElDelta
 	}
