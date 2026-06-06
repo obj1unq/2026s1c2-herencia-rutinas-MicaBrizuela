@@ -76,7 +76,7 @@ class RemoCompeticion inherits Remo(){
 
 
 class Persona {
-    var property peso
+    var property peso //property para tests
 
     method kilosPorCaloria()
 
