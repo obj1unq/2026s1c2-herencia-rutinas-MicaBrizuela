@@ -16,6 +16,7 @@
 // gimnasia.wtest
 // gimnasia.wtest
 // gimnasia.wtest
+// gimnasia.wtest
 import gimnasia.*
 
 describe "rutinas" {
@@ -161,13 +162,9 @@ describe "rutinas" {
 	}
 	
 	test "3.3 rutinas más exigentes" {
-		assert.that(clubBarrial.rutinasMasExigentesPara(bob).size() == 2)
-		assert.that(clubBarrial.rutinasMasExigentesPara(bob).contains(maratonBA))
-		assert.that(clubBarrial.rutinasMasExigentesPara(bob).contains(remarEnCaminoRemeros))
+		assert.equals(#{maratonBA,remarEnCaminoRemeros},clubBarrial.rutinasMasExigentesPara(bob))
+		assert.equals(#{maratonBA,remarEnElDelta}, clubBarrial.rutinasMasExigentesPara(calamardo))
 
-		assert.that(clubBarrial.rutinasMasExigentesPara(calamardo).size() == 2)
-		assert.that(clubBarrial.rutinasMasExigentesPara(calamardo).contains(maratonBA))
-		assert.that(clubBarrial.rutinasMasExigentesPara(calamardo).contains(remarEnElDelta))
 		//Las rutinas más exigentes del clubBarrial para bob son maratonBA y remarEnCaminoRemeros
 		//Las rutinas más exigentes del clubBarrial para calamardo son maratonBA y remarEnElDelta
 	}

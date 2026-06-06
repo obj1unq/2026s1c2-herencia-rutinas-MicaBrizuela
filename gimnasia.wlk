@@ -146,7 +146,7 @@ class Club{
     }
 
     method rutinasMasExigentesPara(_persona){
-        return predios.map({predio => predio.rutinaMasExigentePara(_persona)})
+        return predios.map({predio => predio.rutinaMasExigentePara(_persona)}).asSet()
     }
 }
 
