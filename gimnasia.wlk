@@ -33,23 +33,27 @@
 // gimnasia.wlk
 // gimnasia.wlk
 class Rutina{
-    method intensidad()
+    method intensidad() //hook
 
-    method descanso(_tiempoPractica)
+    method descanso(_tiempoPractica) //hook
 
-    method caloriasBajadas(_tiempo){
-        return 100 * (_tiempo - self.descanso(_tiempo)) * self.intensidad()
+    method caloriasQueBaja(_tiempo){ //nombre caloriasBajadas sugiere orden
+        return 100 * (_tiempo - self.descanso(_tiempo)) * self.intensidad() //template method
     }
 
     method esTranquiAlPracticarlaPor(_minutos){
-        return self.caloriasBajadas(_minutos) < 500
+        return self.caloriasQueBaja(_minutos) < 500
     }
 }
 
 
 class Running inherits Rutina{
 
-    const property intensidad
+    const intensidad //mal property, renombrar metodo para que no haya efectos adversos
+
+    override method intensidad(){
+        return intensidad
+    }
 
     override method descanso(_tiempoPractica){
         return if (_tiempoPractica > 20) {5} else {2}
@@ -70,7 +74,7 @@ class Remo inherits Rutina(){
 
 class Maraton inherits Running{
 
-    override method caloriasBajadas(_tiempo){
+    override method caloriasQueBaja(_tiempo){
         return super(_tiempo) * 2
     }
 }
@@ -90,16 +94,16 @@ class RemoCompeticion inherits Remo(){
 class Persona {
     var property peso //property para tests
 
-    method kilosPorCaloria()
+    method kilosPorCaloria() //hook
 
-    method tiempo()
+    method tiempo() //hook
 
     method pesoQuePierdePor(_rutina){
         return self.caloriasQuemadasPor(_rutina) / self.kilosPorCaloria()
     }
 
     method caloriasQuemadasPor(_rutina){
-        return _rutina.caloriasBajadas(self.tiempo())
+        return _rutina.caloriasQueBaja(self.tiempo())
     }
 
     method aplicarRutina(_rutina){
@@ -107,19 +111,23 @@ class Persona {
         peso -= self.pesoQuePierdePor(_rutina)
     }
 
-    method verificarPuedoAplicar(_rutina){
+    method verificarPuedoAplicar(_rutina){ //template method, porque usa metodos abstractos
         if ( not self.puedeAplicar(_rutina)){
             self.error("No puedo aplicar esta rutina")
         }
     }
 
-    method puedeAplicar(_rutina)
+    method puedeAplicar(_rutina) // hook method, porque se necesita completar por sus subclases para ser instanciadas
 
 }
 
 class PersonaSedentaria inherits Persona{
 
-    const property tiempo
+    const tiempo
+
+    override method tiempo(){
+        return tiempo
+    }
     
     override method kilosPorCaloria(){
         return 7000
@@ -152,11 +160,11 @@ class PersonaAtleta inherits Persona{
 }
 
 class Club{
-    const property predios
+    const predios //property MAL retornar colecciones es una mala practica
 
     method elMejorPredioPara(_persona){
         // return predios.max({predio => predio.cantidadDeCaloriasGastadasPor_SiSigueTodasLasRutinas(_persona)})
-        return predios.max({predio => predio.caloriasQueBajanTodasLasRutinasAlPracticarsePor(_persona.tiempo())})
+        return predios.max({predio => predio.caloriasQueBajanTodasEn(_persona.tiempo())})
     }
 
     method prediosMasTranquiPara(_persona){
@@ -171,10 +179,10 @@ class Club{
 }
 
 class Predio{
-    const property rutinas
+    const rutinas //property MAL SRAA
 
-    method caloriasQueBajanTodasLasRutinasAlPracticarsePor(_minutos){
-        return rutinas.sum({rutina => rutina.caloriasBajadas(_minutos)})
+    method caloriasQueBajanTodasEn(_minutos){
+        return rutinas.sum({rutina => rutina.caloriasQueBaja(_minutos)})
     }
 
     method hayRutinasTranquisDe(_minutos){
@@ -182,7 +190,7 @@ class Predio{
     }
 
     method rutinaMasExigenteDe(_minutos){
-        return rutinas.max({rutina => rutina.caloriasBajadas(_minutos)})
+        return rutinas.max({rutina => rutina.caloriasQueBaja(_minutos)})
     }
 
     // method cantidadDeCaloriasGastadasPor_SiSigueTodasLasRutinas(_persona){

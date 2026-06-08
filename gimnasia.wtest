@@ -47,29 +47,29 @@ describe "rutinas" {
 //
 // PUNTO 1
 	test "1.1 consulta running" {
-		assert.equals(360,correrEnLaPlaya.caloriasBajadas(5))
-		assert.equals(10200, correrEnLaPlaya.caloriasBajadas(90))
+		assert.equals(360,correrEnLaPlaya.caloriasQueBaja(5))
+		assert.equals(10200, correrEnLaPlaya.caloriasQueBaja(90))
 		//correrEnLaPlaya deberia gastar 360 calorias al practicarse por 5 minutos
 		//correrEnLaPlaya deberia gastar 10200 calorias al practicarse por 90 minutos
 	}
 
 	test "1.2 consulta maraton" {
-		assert.equals(900, maratonBA.caloriasBajadas(5))
-		assert.equals(25500, maratonBA.caloriasBajadas(90))
+		assert.equals(900, maratonBA.caloriasQueBaja(5))
+		assert.equals(25500, maratonBA.caloriasQueBaja(90))
 		//maratonBA deberia gastar 900 calorias al practicarse por 5 minutos
 		//maratonBA deberia gastar 25500 calorias al practicarse por 90 minutos
 	}
 
 	test "1.3 consulta remo" {
-		assert.equals(520, remarEnElDelta.caloriasBajadas(5))
-		assert.equals(9360, remarEnElDelta.caloriasBajadas(90))
+		assert.equals(520, remarEnElDelta.caloriasQueBaja(5))
+		assert.equals(9360, remarEnElDelta.caloriasQueBaja(90))
 		//remarEnElDelta deberia gastar 520 calorias al practicarse por 5 minutos
 		//remarEnElDelta deberia gastar 9360 calorias al practicarse por 90 minutos
 	}
 
 	test "1.4 consulta remo competitivo" {
-		assert.equals(510, remarEnCaminoRemeros.caloriasBajadas(5))
-		assert.equals(12750, remarEnCaminoRemeros.caloriasBajadas(90))
+		assert.equals(510, remarEnCaminoRemeros.caloriasQueBaja(5))
+		assert.equals(12750, remarEnCaminoRemeros.caloriasQueBaja(90))
 		//remarEnCaminoRemeros deberia gastar 510 calorias al practicarse por 5 minutos
 		//remarEnCaminoRemeros deberia gastar 12750 calorias al practicarse por 90 minutos
 	}
