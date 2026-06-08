@@ -108,7 +108,7 @@ describe "rutinas" {
 	
 	test '2.1.5 test sedentario no puede practicar' {
 		calamardo.peso(40)
-		calamardo.aplicarRutina(correrEnLaPlaya) //accion
+		assert.throwsException({calamardo.aplicarRutina(correrEnLaPlaya)}) //accion
 		assert.equals(40, calamardo.peso()) //veo que o hay cambios
 		// Hacer que el peso de calamardo sea 40
 		// hacer que calamardo practique correrEnLaPlaya (NO SE PUEDE!)
@@ -131,7 +131,7 @@ describe "rutinas" {
 	 }
 
 	test "2.2.3 test atleta remo" {
-		bob.aplicarRutina(remarEnElDelta)
+		assert.throwsException({bob.aplicarRutina(remarEnElDelta)})
 		assert.equals(40, bob.peso())
 		// hacer que bob practique remarEnElDelta( NO SE PUEDE!)
 		// el peso de bob debería ser 40 

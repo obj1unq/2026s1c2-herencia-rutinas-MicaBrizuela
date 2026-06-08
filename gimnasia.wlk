@@ -30,6 +30,8 @@
 // gimnasia.wlk
 // gimnasia.wlk
 // gimnasia.wlk
+// gimnasia.wlk
+// gimnasia.wlk
 class Rutina{
     method intensidad()
 
@@ -101,8 +103,13 @@ class Persona {
     }
 
     method aplicarRutina(_rutina){
-        if (self.puedeAplicar(_rutina)){
-            peso -= self.pesoQuePierdePor(_rutina)
+        self.verificarPuedoAplicar(_rutina)
+        peso -= self.pesoQuePierdePor(_rutina)
+    }
+
+    method verificarPuedoAplicar(_rutina){
+        if ( not self.puedeAplicar(_rutina)){
+            self.error("No puedo aplicar esta rutina")
         }
     }
 
